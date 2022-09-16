@@ -4,5 +4,14 @@
         <file>WBNotifiction.qml</file>
         <file>res/cloudmusic.ico</file>
         <file>WBToast.qml</file>
+        <file>WBSVGIcon.qml</file>
+        <file>res/Alert-20_20.svg</file>
+        <file>res/close-px.svg</file>
+        <file>res/failed_20_20.svg</file>
+        <file>res/loading.gif</file>
+        <file>res/loading-trade.gif</file>
+        <file>res/success_20_20.svg</file>
+        <file>res/toast_cuowu.gif</file>
+        <file>res/toast_submitt.gif</file>
     </qresource>
 </RCC>

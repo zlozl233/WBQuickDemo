@@ -51,7 +51,7 @@ ApplicationWindow{
                     width: img.width
                     height: img.height
                     radius: 10
-                    color: "red"
+                    color: "#FFFFFF"
                     visible: false
                 }
 
@@ -93,12 +93,18 @@ ApplicationWindow{
                     text:qsTr("just now")
                 }
                 // close
-                Rectangle {
+                Image {
                     id:close_btn
                     width:16
                     height:16
-                    radius:8
-
+                    anchors.top: parent.top
+                    anchors.topMargin:8
+                    anchors.right: parent.right
+                    anchors.rightMargin:8
+                    smooth: true
+                    visible: true
+                    asynchronous: true
+                    source: "qrc:/res/close-px.svg"
                     MouseArea{
                         anchors.fill: parent
                         onClicked: console.log(" close button is clicked")
