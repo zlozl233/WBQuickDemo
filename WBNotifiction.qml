@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Window 2.3
 
+///> WBNotifiction.qml
 Window{
     id: pop_window
     visible: false
@@ -18,21 +19,23 @@ Window{
     y: 100
 
     //初始位置，在屏幕右下角 windows style
-//    x: Screen.desktopAvailableWidth-width
-//    y: Screen.desktopAvailableHeight
+//    x: Screen.width - content_pop_window.width
+//    y: Screen.desktopAvailableHeight - content_pop_window.height
 
     //根据Loader设置大小
     width: content_loader.width
     height: content_loader.height
+
     //设置显示内容的变量
     property alias content_pop_window:content_loader.sourceComponent
     //icon
 
     //显示时间
     property int displayTime: 3000;
-
+    property int margin: 10;
     property bool isHoverd;
     property bool isShowed;
+
     MouseArea{
         id:content_mouse
         anchors.fill: parent
@@ -89,7 +92,7 @@ Window{
             property: "x"
             //从当前值开始移动
             from: Screen.width
-            to: pop_window.x - content_loader.width
+            to: pop_window.x - content_loader.width - margin
             duration:800
         }
         onStarted:{
@@ -140,4 +143,5 @@ Window{
         show_anim.stop()
         hide_anim.start()
     }
+
 }

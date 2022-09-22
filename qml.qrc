@@ -13,5 +13,9 @@
         <file>res/success_20_20.svg</file>
         <file>res/toast_cuowu.gif</file>
         <file>res/toast_submitt.gif</file>
+        <file>WBToastManager.qml</file>
+        <file>WBNotifyManager.qml</file>
+        <file>WBToastV2.qml</file>
+        <file>WBNotification.qml</file>
     </qresource>
 </RCC>

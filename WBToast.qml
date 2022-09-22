@@ -1,4 +1,4 @@
-pragma Singleton
+//pragma Singleton
 import QtQuick 2.0
 
 /******************************************************************************
@@ -17,7 +17,7 @@ import QtQuick 2.0
  *
  *****************************************************************************/
 
-QtObject {
+Rectangle {
     id:wb_toast;
 
     property int layoutY: 75;
@@ -26,26 +26,24 @@ QtObject {
         mcontrol.create(mcontrol.const_success,text,duration,moremsg ? moremsg : "");
     }
 
-    function showInfo(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_info,text,duration,moremsg ? moremsg : "");
+    function showRefresh(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_loading,text,duration,moremsg ? moremsg : "");
     }
 
-    function showWarning(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_warning,text,duration,moremsg ? moremsg : "");
+    function showFailed(text,duration,moremsg){
+        mcontrol.create(mcontrol.const_failed,text,duration,moremsg ? moremsg : "");
     }
 
-    function showError(text,duration,moremsg){
-        mcontrol.create(mcontrol.const_error,text,duration,moremsg ? moremsg : "");
-    }
 
+    // 自定义
     function showCustom(itemcomponent,duration){
         mcontrol.createCustom(itemcomponent,duration);
     }
 
-    QtObject {
+    property var controlObj: QtObject {
         id:mcontrol;
 
-        property var root_window: _root_window_;
+//        property var root_window: _root_window_;
         property var screenLayout: null;
 
         // 消息类型
@@ -64,14 +62,14 @@ QtObject {
 
         function create(type,text,duration,moremsg){
             if(screenLayout){
-//                var last = screenLayout.getLastloader();
-//                if(last.type === type && last.text === text && moremsg === last.moremsg){
-//                    last.restart();
-//                    return;
-//                }
+                var last = screenLayout.getLastloader();
+                if(last.type === type && last.text === text && moremsg === last.moremsg){
+                    last.restart();
+                    return;
+                }
             }
 
-            initScreenLayout();
+//            initScreenLayout();
             contentComponent.createObject(screenLayout,{
                                               type:type,
                                               text:text,
@@ -91,16 +89,16 @@ QtObject {
             if(screenLayout == null){
                 screenLayout = screenlayoutComponent.createObject(root_window);
                 screenLayout.y = wb_toast.layoutY;
-                screenLayout.z = 100000;
+                screenLayout.z = 100000; //z轴
             }
         }
 
         //layout
-        Component{
+        property var layoutCompnent: Component{
             id:screenlayoutComponent
             Column{
                 spacing: 20;
-                width: parent.width;
+                width: 1000;
                 // y轴动效
                 move: Transition {
                     NumberAnimation { properties: "y"; easing.type: Easing.OutBack; duration: 300 }
@@ -118,11 +116,11 @@ QtObject {
         }
 
         //content
-        Component{
+        property var contentComponent: Component{
             id:contentComponent
             Item{
                 id:content;
-                property int    duration: TTimePreset.ShortTime2s;
+                property int    duration: 3000;
                 property var    itemcomponent;
                 property string type;
                 property string text;
@@ -172,77 +170,51 @@ QtObject {
             id:rect;
             width:  rowlayout.width  + (_super.moremsg ? 25 : 80);
             height: rowlayout.height + 20;
+
+            property color bg_color: "#FFFFFF";
+            property color fg_color: "#181C2F";
+
+            //bg
             color: {
-                switch(_super.type){
-                    case mcontrol.const_success: return "#F0F9EB";
-                    case mcontrol.const_warning: return "#FDF6ED";
-                    case mcontrol.const_info:    return "#EDF2FC";
-                    case mcontrol.const_error:   return "#FEF0F0";
-                }
-                return "#FFFFFF"
+                return bg_color
             }
             radius: 4;
-            border.width: 1;
-            border.color: Qt.lighter(ticon.color,1.2);
 
-//            theme.parent: mtheme;
-//            theme.groupName: _super.type;
-//            theme.childName: "bg"
+//            border.width: 1;
+//            border.color: Qt.lighter(ticon.color,1.2);
 
             Row{
                 id:rowlayout
                 x:20;
                 y:(parent.height - height) / 2;
                 spacing: 10
-                TSVGIcon{
+                Image{
                     id:ticon
-                    theme.parent: mtheme;
-                    theme.groupName: rect.theme.groupName;
-                    theme.childName: "content";
-
                     anchors.verticalCenter: parent.verticalCenter;
                     source:{
                         switch(_super.type){
-                            case mcontrol.const_success: return "qrc:/net.toou.2d/resource/svg/success.svg";
-                            case mcontrol.const_warning: return "qrc:/net.toou.2d/resource/svg/warning.svg";
-                            case mcontrol.const_info:    return "qrc:/net.toou.2d/resource/svg/info.svg";
-                            case mcontrol.const_error:   return "qrc:/net.toou.2d/resource/svg/error.svg";
+                            case mcontrol.const_success:    return "qrc:/res/success_20_20.svg";
+                            case mcontrol.const_failed:     return "qrc:/res/failed_20_20.svg";
+                            case mcontrol.const_loading:    return "qrc:/res/loading.gif";
                         }
-                        return "#FFFFFF"
+                        return ""
                     }
 
                     width:  more.visible ? 40 : 22;
                     height: more.visible ? 40 : 22;
-
-                    color: {
-                        switch(_super.type){
-                            case mcontrol.const_success: return "#6AC044";
-                            case mcontrol.const_warning: return "#E4A147";
-                            case mcontrol.const_info:    return "#909399";
-                            case mcontrol.const_error:   return "#F36D6F";
-                        }
-                        return "#FFFFFF"
-                    }
                 }
 
                 Column{
                     spacing: 5;
-                    TLabel{
-                        theme.parent: mtheme;
-                        theme.groupName: rect.theme.groupName;
-
+                    Text{
                         font.bold:more.visible
                         font.pixelSize: 20;
                         text: _super.text
-                        color: ticon.color;
+                        color: fg_color;
                     }
-
-                    TLabel{
+                    Text{
                         id:more
-                        theme.parent: mtheme;
-                        theme.groupName: rect.theme.groupName;
-
-                        color:    ticon.color;
+                        color:    fg_color;
                         text:    _super.moremsg;
                         visible: _super.moremsg;
                         wrapMode : Text.WordWrap
@@ -254,9 +226,8 @@ QtObject {
                 }
             }
 
+             //close btn
             TIconButton{
-                theme.parent: mtheme;
-                theme.childName: "btn.close"
                 icon.width:  12;
                 icon.height: 12;
                 y:4; x:parent.width - width

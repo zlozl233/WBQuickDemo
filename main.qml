@@ -7,6 +7,7 @@ ApplicationWindow{
     width: 640
     height: 480
     visible: true
+    color: "#F7F8FA"
     Grid {
         spacing: 10
         Button{
@@ -15,16 +16,65 @@ ApplicationWindow{
             height:50
             onClicked:pop.showWindow()
         }
+//        Button{
+//            text:"Notification2"
+//            width:100
+//            height:50
+//            onClicked:pop.showWindow()
+//        }
+//        Button{
+//            text:"Notification3"
+//            width:100
+//            height:50
+//            onClicked:pop.showWindow()
+//        }
+//        Button{
+//            text:"Notification4"
+//            width:100
+//            height:50
+//            onClicked:pop.showWindow()
+//        }
         Button{
-            text:"ToastDemo"
+            text:"Toast_Success"
             width:100
             height:50
+            onClicked: toast_v2.show("success","Login Successfully...", 3000);
+        }
+        Button{
+            text:"Toast_Failed"
+            width:100
+            height:50
+            onClicked: toast_v2.show("failed","Login Failed...", 3000);
+        }
+        Button{
+            text:"Toast_Refresh"
+            width:100
+            height:50
+            onClicked: toast_v2.show("refersh","Login Loading...", 4000);
+        }
+        Button{
+            text:"Toast_Manager"
+            width:100
+            height:50
+            onClicked: toast_v2.show("success","Login Successfully...", 4000);
         }
     }
+
+
+    WBToastV2 {
+        id: toast_v2
+    }
+
+    WBToastManager {
+        id: toast_manager;
+    }
+
+
+
     WBNotifiction{
         id:pop
         // 设置初始位置,对PopWindow里面的x,y进行了覆盖
-        x: get_screen_pixel(1, Screen.width) /*- get_screen_pixel(0.005, Screen.width)*/
+        x: get_screen_pixel(1, Screen.width)
         y: get_screen_pixel(0.05, Screen.height)
         content_pop_window:
             Rectangle{
@@ -46,20 +96,20 @@ ApplicationWindow{
                     visible: true
                 }
 
-                Rectangle {
-                    id: img_mask
-                    width: img.width
-                    height: img.height
-                    radius: 10
-                    color: "#FFFFFF"
-                    visible: false
-                }
+//                Rectangle {
+//                    id: img_mask
+//                    width: img.width
+//                    height: img.height
+//                    radius: 10
+//                    color: "#FFFFFF"
+//                    visible: false
+//                }
 
-                OpacityMask {
-                    anchors.fill: img
-                    source: img
-                    maskSource: img_mask
-                }
+//                OpacityMask {
+//                    anchors.fill: img
+//                    source: img
+//                    maskSource: img_mask
+//                }
 
                 // title
                 Text{
