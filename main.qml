@@ -10,6 +10,8 @@ ApplicationWindow{
     color: "#F7F8FA"
     Grid {
         spacing: 10
+        columns: 4
+
         Button{
             text:"Notification"
             width:100
@@ -20,25 +22,20 @@ ApplicationWindow{
 //            text:"Notification2"
 //            width:100
 //            height:50
-//            onClicked:pop.showWindow()
+//            onClicked:wbnotify.show("1111","2222");
 //        }
 //        Button{
-//            text:"Notification3"
+//            text:"Notify_Manager"
 //            width:100
 //            height:50
-//            onClicked:pop.showWindow()
 //        }
-//        Button{
-//            text:"Notification4"
-//            width:100
-//            height:50
-//            onClicked:pop.showWindow()
-//        }
+
         Button{
             text:"Toast_Success"
             width:100
             height:50
             onClicked: toast_v2.show("success","Login Successfully...", 3000);
+
         }
         Button{
             text:"Toast_Failed"
@@ -52,12 +49,6 @@ ApplicationWindow{
             height:50
             onClicked: toast_v2.show("refersh","Login Loading...", 4000);
         }
-        Button{
-            text:"Toast_Manager"
-            width:100
-            height:50
-            onClicked: toast_v2.show("success","Login Successfully...", 4000);
-        }
     }
 
 
@@ -68,7 +59,6 @@ ApplicationWindow{
     WBToastManager {
         id: toast_manager;
     }
-
 
 
     WBNotifiction{
@@ -83,6 +73,8 @@ ApplicationWindow{
                 height:70
                 radius:10
                 color: Qt.rgba(0.8,0.8,0.8,0.8)
+                //抗锯齿
+                antialiasing: true
                 // icon
                 Image {
                     id: img
@@ -96,20 +88,20 @@ ApplicationWindow{
                     visible: true
                 }
 
-//                Rectangle {
-//                    id: img_mask
-//                    width: img.width
-//                    height: img.height
-//                    radius: 10
-//                    color: "#FFFFFF"
-//                    visible: false
-//                }
+                Rectangle {
+                    id: img_mask
+                    width: img.width
+                    height: img.height
+                    radius: 10
+                    color: "#FFFFFF"
+                    visible: false
+                }
 
-//                OpacityMask {
-//                    anchors.fill: img
-//                    source: img
-//                    maskSource: img_mask
-//                }
+                OpacityMask {
+                    anchors.fill: img
+                    source: img
+                    maskSource: img_mask
+                }
 
                 // title
                 Text{
@@ -152,26 +144,33 @@ ApplicationWindow{
                     anchors.right: parent.right
                     anchors.rightMargin:8
                     smooth: true
-                    visible: true
+                    visible: pop.isHoverd
                     asynchronous: true
                     source: "qrc:/res/close-px.svg"
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: console.log(" close button is clicked")
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            console.log(" close button is clicked");
+                            pop.hideWindow();
+                        }
                     }
                 }
 //                MouseArea{
 //                    anchors.fill: parent
 //                    //是否传递到被覆盖的MouseArea
 //                    propagateComposedEvents: true
-
+//                    hoverEnabled: true
 //                    onClicked: {
 //                        console.info(" onClicked1111.....")
-//                        mouse.accepted = false
 //                    }
-//                    onEntered: console.log(" onEntered111....")
+//                    onEntered: {
+//                        close_btn.visible = true
+//                    }
+//                    onExited: {
+//                        close_btn.visible = false
+//                    }
 //                }
-
             }
     }
 

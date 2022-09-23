@@ -25,14 +25,15 @@ Item {
     property int toast_moveY: 30;
 
     property color shadowColor: "#D5D9DC"; //ZX021
+    property int maxWidth: 500
 
     //api
     function show(type,text,displayTime) {
         contentText.text = text;
-        root.width = contentText.contentWidth + 66;
         toast_displayTime = displayTime;
+        root.width = contentText.contentWidth + 66;
         toast_type = type;
-        console.log(" type "+ type+ " text "+ text+ " displayTime "+ displayTime);
+        console.log("WBToast show : type "+ type+ " text "+ text+ " displayTime "+ displayTime);
         wb_toast.hideToast();
         wb_toast.showToast();
     }
@@ -44,7 +45,7 @@ Item {
         //pos
         x: (parent.width - width) /2
         y:  0
-        z: 99999
+        z: 99999 //z轴
         radius: 30
         opacity: 0
 
@@ -100,7 +101,6 @@ Item {
         Text {
             id: contentText
             color: "#181C2F" //ZX001
-            wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
             font.family: "微软雅黑"
             font.pixelSize: 14
@@ -108,6 +108,16 @@ Item {
             anchors.verticalCenterOffset: 0
             anchors.left:parent.left
             anchors.leftMargin:40+6
+//            wrapMode: Text.Wrap
+//            onContentHeightChanged: {
+//                console.log(" contentHeight = "+contentHeight)
+//                root.height = contentHeight + 32;
+//            }
+//            onContentWidthChanged: {
+//                console.log(" contentWidth = "+contentWidth)
+//                width = contentWidth+66 > maxWidth ? maxWidth : contentWidth
+//                root.width = width + 66;
+//            }
         }
 
         //设置出现后显示时间的计时器

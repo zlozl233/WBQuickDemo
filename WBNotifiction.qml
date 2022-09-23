@@ -40,7 +40,7 @@ Window{
         id:content_mouse
         anchors.fill: parent
         hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+//        cursorShape: Qt.PointingHandCursor
 
         onClicked: {
             console.info(" onClicked.....")
