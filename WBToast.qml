@@ -1,21 +1,6 @@
 //pragma Singleton
 import QtQuick 2.0
 
-/******************************************************************************
- * Copyright(C),2022,The Webull Tech Company Ltd
- * All right reserved. See COPYRIGHT for detailed Information.
- * Contact: https://www.webull.com/
- *
- * @file       WBToast.qml
- * @version    1.0.0
- * @author     zhanglei@webull.com
- * @date       2022/09/16
- * @brief      XXXX Function
- * @history
- *
- *
- *
- *****************************************************************************/
 
 Rectangle {
     id:wb_toast;
