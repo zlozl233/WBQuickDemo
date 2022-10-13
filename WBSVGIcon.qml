@@ -1,22 +1,5 @@
 import QtQuick 2.0
 
-/******************************************************************************
- * Copyright(C),2022,The Webull Tech Company Ltd
- * All right reserved. See COPYRIGHT for detailed Information.
- * Contact: https://www.webull.com/
- *
- * @file       WBSVGIcon.qml
- * @version    1.0.0
- * @author     zhanglei@webull.com
- * @date       2022/09/16
- * @brief      svg 是一种比较流行的icon 源。
-               默认是异步加载的,可提高性能。
- * @history
- *
- *
- *
- *****************************************************************************/
-
 Item {
     id:wb_svgicon
     width:  16; height: 16;
