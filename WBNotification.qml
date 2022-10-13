@@ -3,13 +3,12 @@ import QtGraphicalEffects 1.3
 import QtQuick.Window 2.2
 
 /******************************************************************************
- * Copyright(C),2022,The Webull Tech Company Ltd
  * All right reserved. See COPYRIGHT for detailed Information.
- * Contact: https://www.webull.com/
+ * Contact: zlozl5566@163.com
  *
  * @file       WBNotification.qml
  * @version    1.0.0
- * @author     zhanglei@webull.com
+ * @author     zlozl
  * @date       2022/09/22
  * @brief      XXXX Function
  * @history
